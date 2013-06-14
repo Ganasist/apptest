@@ -38,7 +38,7 @@ var server = net.createServer(function (socket) {
 			    client.lpush(redis_key, timestamp);
 			    if (typeof client_domain != 'undefined') {
 				if (country != 'Canada') {
-				    client.lpush("fraud:" + client_domain, client_ip + "|" + timestamp + "|" + country);
+				    client.lpush("fraud:" + client_domain,	client_ip + "|" + timestamp + "|" + country);
 				}
 			    }
 			}
