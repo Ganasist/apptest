@@ -7,13 +7,13 @@ redis = require('redis')
 
 client = redis.createClient()
 
-client.on('error', (err) ->
-    console.log('Database error', err)
-)
+client.on('error', (err) -> console.log('Database error', err))
 client.select(1)
 
-server = net.createServer((socket) ->	console.log("Starting server")
-	socket.on('end', -> console.log("Connection closed"))
+server = net.createServer((socket) ->	
+	console.log("Starting server")
+	socket.on('end', -> 
+		console.log("Connection closed"))
   socket.on('data', (buf) ->
 		try
 			requests = buf.toString().split('\n')
@@ -35,8 +35,7 @@ server = net.createServer((socket) ->	console.log("Starting server")
 			    client.lpush(redis_key, timestamp)
 			    if typeof client_domain != 'undefined'
 				if country != 'Canada'
-					client.lpush("fraud:" + client_domain
-					client_ip + "|" + timestamp + "|" + country)
+					client.lpush("fraud:" + client_domain, client_ip + "|" + timestamp + "|" + country)
 
 		catch (err)
 			console.log("Error", err, buf.toString()))
